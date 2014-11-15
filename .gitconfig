@@ -1,0 +1,10 @@
+[core]
+	editor = vim
+[diff]
+[color]
+	ui = true
+[user]
+	name = Semen Martynov
+	email = semen.martynov@gmail.com
+[push]
+	default = upstream
