@@ -1,0 +1,35 @@
+Config {
+         font = "xft:Consolas-8"
+       , borderColor = "black"
+       , border = TopB
+       , bgColor = "black"
+       , fgColor = "grey"
+       , position = Top
+--       , position = TopW R 96
+       , lowerOnStart = True
+       , commands = [
+                      Run Kbd [
+                                       ("us"      , "US"   )    ,
+                                       ("ru(winkeys)", "RU")     ]
+                    , Run StdinReader
+                    , Run Wireless "wlp3s0" [
+                                       "-t"         , "<essid>: <quality>%"
+                                       , "-L"       , "20"
+                                       , "-H"       , "70"
+                                       , "--low"    , "#FF0000"
+                                       , "--normal" , "#F9FF00"
+                                       , "--high"   , "#00FF00"    ] 600
+                    , Run Battery [
+                                       "-t"         , "<left>% * left <timeleft>"
+                                       , "-L"       , "20"
+                                       , "-H"       , "50"
+                                       , "--low"    , "#FF0000"
+                                       , "--normal" , "#F9FF00"
+                                       , "--high"   , "#00FF00"    ] 600
+--                                       "-t"       , "Vol: <volume>%"] 1
+                    , Run Date "%a %b %_d %Y %H:%M" "date" 600
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = " <fc=#FF0000>%kbd%</fc> <fc=#555>|</fc> %StdinReader% }{ ( %wlp3s0wi% ) ( bat: %battery% ) <fc=#555>|</fc> <fc=#EE9A00><action=gsimplecal>%date%</action></fc>"
+       }

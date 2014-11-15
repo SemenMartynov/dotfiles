@@ -1,0 +1,36 @@
+utohint: 0
+Xft.lcdfilter:  lcddefault
+Xft.hintstyle:  hintfull
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb
+
+! Cursor
+Xcursor.theme: whiteglass
+
+! URxvt Extensions
+! matcher - Make URLs clickable and open them in Firefox
+! clipboard - Automatically copy any selection in rxvt-unicode to the X clipboard
+URxvt.perl-ext-common: default,matcher,clipboard
+! matcher extension settings
+URxvt.urlLauncher: firefox
+URxvt.matcher.button: 1
+
+URxvt.termName: rxvt
+URxvt.transparent: true
+!URxvt.inheritPixmap: false
+URxvt.scrollBar: false
+URxvt.savelines: 1000
+URxvt.cursorBlink: true
+!URxvt.geometry: 93x26
+URxvt.fading: 25%
+URxvt.font: xft:Bitstream Vera Sans Mono:pixelsize=12
+!URxvt.font: xft:terminus:size=10:antialias=true
+URxvt.boldfont: xft:Bitstream Vera Sans Mono:bold:pixelsize=12
+!URxvt.boldfont: xft:terminus:bold:size=10:antialias=true
+!urxvt.depth: 32
+URxvt.background: rgba:0000/0000/0000/dddd
+URxvt.foreground: grey80
+URxvt.tintColor: #262626
+!URxvt.borderLess: true
+URxvt.borderColor: #888888

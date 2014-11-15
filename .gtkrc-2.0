@@ -1,0 +1,2 @@
+include "/home/sam/.themes/com-solancer-ambiance/gtk-2.0/gtkrc"
+include "/home/sam/.gtkrc-2.0.mine"
