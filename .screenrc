@@ -1,0 +1,23 @@
+defutf8 on
+defflow on
+deflogin on
+hardstatus off
+caption always ' %{-b dd}%-w%{cd}%n* %t%{-}%+w %{cd}%-=(%l) %d/%m %c%{-} '
+
+# enable visual bell
+vbell on
+
+# message for (visual bell)
+vbell_msg "vbell %n"
+bell_msg "Bell %n"
+activity "Activity on %n"
+
+# enable activity monitor, can be also enable by ^a M
+defmonitor on
+defscrollback 10000
+crlf off
+#defbce on
+autodetach on
+
+# alternate screen support
+altscreen on
