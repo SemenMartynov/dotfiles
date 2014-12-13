@@ -45,6 +45,10 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
+# history navigation
+bind '"\e[A": history-search-backward'
+bind '"\e[B": history-search-forward'
+
 # some more aliases
 alias yandex='mount /media/yandex'
 alias cd..='cd ..'
