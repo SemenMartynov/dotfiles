@@ -38,7 +38,7 @@ myBorderWidth   = 1
 -- ("right alt"), which does not conflict with emacs keybindings. The
 -- "windows key" is usually mod4Mask.
 --
-myModMask       = mod1Mask
+myModMask       = mod4Mask
 
 -- The default number of workspaces (virtual screens) and their names.
 -- By default we use numeric strings, but any string may be used as a
@@ -158,9 +158,13 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
       ((modm            , xK_f    ), spawn "firefox")
     , ((modm            , xK_v    ), spawn "vlc")
     , ((modm            , xK_s    ), spawn "skype")
-    , ((0               , 0x1008FF11), spawn "amixer set Master 2-")
-    , ((0               , 0x1008FF13), spawn "amixer set Master 2+")
-    , ((0               , 0x1008FF12), spawn "amixer set Master toggle")
+    , ((modm            , xK_e    ), spawn "eclipse")
+    --, ((0               , 0x1008FF11), spawn "amixer set Master 2-")
+    --, ((0               , 0x1008FF13), spawn "amixer set Master 2+")
+    --, ((0               , 0x1008FF12), spawn "amixer set Master toggle")
+    , ((0               , 0x1008FF11), spawn "pactl set-sink-volume 0 -- -1.5%")
+    , ((0               , 0x1008FF13), spawn "pactl set-sink-volume 0 +1.5%")
+    , ((0               , 0x1008FF12), spawn "pactl set-sink-mute 0 toggle")
     ]
 ------------------------------------------------------------------------
 -- Mouse bindings: default actions bound to mouse events
