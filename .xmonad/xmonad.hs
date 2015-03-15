@@ -162,7 +162,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     --, ((0               , 0x1008FF11), spawn "amixer set Master 2-")
     --, ((0               , 0x1008FF13), spawn "amixer set Master 2+")
     --, ((0               , 0x1008FF12), spawn "amixer set Master toggle")
-    , ((0               , 0x1008FF11), spawn "pactl set-sink-volume 0 -- -1.5%")
+    , ((0               , 0x1008FF11), spawn "pactl set-sink-volume 0 -1.5%")
     , ((0               , 0x1008FF13), spawn "pactl set-sink-volume 0 +1.5%")
     , ((0               , 0x1008FF12), spawn "pactl set-sink-mute 0 toggle")
     ]
