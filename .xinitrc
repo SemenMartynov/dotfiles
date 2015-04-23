@@ -16,6 +16,6 @@ setxkbmap -layout "us,ru(winkeys)" -option "grp:ctrl_shift_toggle"
 # Wallpaper
 feh --bg-scale ~/.wallpapers/math.png
 # Dropbox
-(sleep 20s && dropboxd) &
+(sleep 20s && dropbox) &
 # start x
 exec xmonad
