@@ -29,7 +29,30 @@ shopt -s nocaseglob
 shopt -s cmdhist
 
 # prompt
-PS1='\[\033[32m\]\u@\[\033[01;32m\]\h\[\033[00m\]:\[\033[34m\]\w\[\033[00m\]\$ '
+#PS1='\[\033[32m\] \u @ \[\033[01;32m\] \h \[\033[00m\]:\[\033[34m\] \w \[\033[00m\] \$ '
+
+export PROMPT_COMMAND=__prompt_command
+function __prompt_command() {
+    local EXIT="$?"             # This needs to be first
+
+    local Reset='\[\033[00m\]'
+    local Gre='\[\033[00;32m\]'
+    local BGre='\[\033[01;32m\]'
+    local LGre='\[\033[00;92m\]'
+	local Red='\[\033[00;31m\]'
+    local BRed='\[\033[01;31m\]'
+    local LRed='\[\033[00;91m\]'
+    local Pur='\[\e[0;35m\]'
+
+    local status=""
+    if [ $EXIT != 0 ]; then
+        status="${Red}\u${LRed}@${BRed}\h${Reset}"      # Add red if exit code non 0
+    else
+        status="${Gre}\u${LGre}@${BGre}\h${Reset}"
+    fi
+
+    PS1="${Pur}\w\n$status\$ "
+}
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -55,7 +78,6 @@ alias tm='tmux attach || tmux new'
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
 
-# case-insensitive auto-completion
 bind 'set completion-ignore-case on'
 
 # enable programmable completion features (works for Ubuntu).
