@@ -39,7 +39,7 @@ function __prompt_command() {
     local Gre='\[\033[00;32m\]'
     local BGre='\[\033[01;32m\]'
     local LGre='\[\033[00;92m\]'
-	local Red='\[\033[00;31m\]'
+    local Red='\[\033[00;31m\]'
     local BRed='\[\033[01;31m\]'
     local LRed='\[\033[00;91m\]'
     local Pur='\[\e[0;35m\]'
