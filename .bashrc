@@ -80,7 +80,7 @@ bind '"\e[B": history-search-forward'
 
 bind 'set completion-ignore-case on'
 
-# enable programmable completion features (works for Ubuntu).
+# enable programmable completion features (install bash-completion).
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
