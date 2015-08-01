@@ -15,6 +15,7 @@ import XMonad.Hooks.DynamicLog
 
 import XMonad.Hooks.ManageHelpers
 import XMonad.Layout.NoBorders
+import XMonad.Actions.CycleWS
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
@@ -102,6 +103,14 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- Swap the focused window with the previous window
     , ((modm .|. shiftMask, xK_k     ), windows W.swapUp    )
+
+    -- Mooving through the list of workspaces
+    , ((modm,               xK_Right ), nextWS)
+    , ((modm,               xK_Left  ), prevWS)
+
+    -- Transmission windows between workspaces
+    , ((modm .|. shiftMask, xK_Right ), shiftToNext >> nextWS)
+    , ((modm .|. shiftMask, xK_Left  ), shiftToPrev >> prevWS)
 
     -- Shrink the master area
     , ((modm,               xK_h     ), sendMessage Shrink)
