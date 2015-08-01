@@ -229,9 +229,7 @@ myManageHook = composeAll
     [ className =? "MPlayer"        --> doFloat
     , className =? "Gimp"           --> doFloat
     , className =? "Firefox" <&&> resource =? "Dialog"      --> doFloat
-    , className =? "Firefox" <&&> resource =? "Extension"   --> doFloat
     , className =? "Firefox" <&&> resource =? "Browser"     --> doFloat
-    , title     =? "Firefox Preferences" --> doFloat
     , className =? "vlc"            --> doFloat
     , className =? "wicd"           --> doFloat
     , resource  =? "desktop_window" --> doIgnore
