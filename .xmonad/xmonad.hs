@@ -168,12 +168,10 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm            , xK_v    ), spawn "vlc")
     , ((modm            , xK_s    ), spawn "skype")
     , ((modm            , xK_e    ), spawn "eclipse")
-    --, ((0               , 0x1008FF11), spawn "amixer set Master 2-")
-    --, ((0               , 0x1008FF13), spawn "amixer set Master 2+")
-    --, ((0               , 0x1008FF12), spawn "amixer set Master toggle")
     , ((0               , 0x1008FF11), spawn "pactl set-sink-volume 0 -1.5%")
     , ((0               , 0x1008FF13), spawn "pactl set-sink-volume 0 +1.5%")
     , ((0               , 0x1008FF12), spawn "pactl set-sink-mute 0 toggle")
+    , ((0               , 0x1008FFb2), spawn "pactl set-source-mute 1 toggle")
     ]
 ------------------------------------------------------------------------
 -- Mouse bindings: default actions bound to mouse events
