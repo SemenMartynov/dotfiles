@@ -13,9 +13,9 @@
 export HISTCONTROL=ignoreboth:erasedups
 
 # save quantity comand
-#export HISTSIZE=500
+export HISTSIZE=1000
 # size of history log in KB
-#export HISTFILESIZE=500
+export HISTFILESIZE=50000
 
 # append to the history file, don't overwrite it
 shopt -s histappend
