@@ -20,6 +20,7 @@ call vundle#begin()           " Keep Plugin commands between vundle#begin/end.
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdtree'  " plugins on GitHub repo
 Plugin 'bling/vim-airline'
+Plugin 'scrooloose/syntastic'
 Plugin 'Raimondi/delimitMate'
 Plugin 'majutsushi/tagbar'
 Plugin 'fatih/vim-go'
@@ -41,6 +42,19 @@ map <C-n> :NERDTreeToggle<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""
 set laststatus=2   " Always show the statusline
 set encoding=utf-8 " Necessary to show Unicode glyphs"
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""
+""                 SYNTASTIC                  ""
+""""""""""""""""""""""""""""""""""""""""""""""""
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""
