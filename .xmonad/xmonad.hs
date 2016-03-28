@@ -14,6 +14,7 @@ import System.Exit
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageHelpers
+import XMonad.Hooks.SetWMName
 import XMonad.Layout.NoBorders
 import XMonad.Actions.CycleWS
 
@@ -273,7 +274,8 @@ myLogHook = return ()
 -- per-workspace layout choices.
 --
 -- By default, do nothing.
-myStartupHook = return ()
+--myStartupHook = return ()
+myStartupHook = ewmhDesktopsStartup >> setWMName "LG3D"
 
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
