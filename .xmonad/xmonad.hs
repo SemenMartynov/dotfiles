@@ -239,7 +239,7 @@ myManageHook = composeAll
     , className =? "Firefox" <&&> resource =? "Dialog"      --> doFloat
     , className =? "Firefox" <&&> resource =? "Browser"     --> doFloat
     , className =? "vlc"            --> doFloat
-    , className =? "wicd"           --> doFloat
+    , className =? "Volwheel"       --> doFloat
     , resource  =? "desktop_window" --> doIgnore
     , resource  =? "kdesktop"       --> doIgnore
     , title     =? "Open..."        --> doFloat
