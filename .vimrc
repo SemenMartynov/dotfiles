@@ -33,9 +33,12 @@ filetype plugin indent on     " required
 """"""""""""""""""""""""""""""""""""""""""""""""
 ""                  NERDTree                  ""
 """"""""""""""""""""""""""""""""""""""""""""""""
-let NERDTreeIgnore=['\.pyc$']
-map <C-n> :NERDTreeToggle<CR>
+"let NERDTreeIgnore=['\.pyc$']
+silent! nmap <C-p> :NERDTreeToggle<CR>
+silent! map <F3> :NERDTreeFind<CR>
 
+let g:NERDTreeMapActivateNode="<F3>"
+let g:NERDTreeMapPreview="<F4>"
 
 """"""""""""""""""""""""""""""""""""""""""""""""
 ""                  AIRLINE                   ""
