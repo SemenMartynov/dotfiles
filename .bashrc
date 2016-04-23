@@ -36,12 +36,13 @@ function __prompt_command() {
     local EXIT="$?"             # This needs to be first
 
     local Reset='\[\033[00m\]'
-    local Gre='\[\033[00;32m\]'
+    local  Gre='\[\033[00;32m\]'
     local BGre='\[\033[01;32m\]'
     local LGre='\[\033[00;92m\]'
-    local Red='\[\033[00;31m\]'
+    local  Red='\[\033[00;31m\]'
     local BRed='\[\033[01;31m\]'
     local LRed='\[\033[00;91m\]'
+    local BYel='\[\033[01;33m\]'
     local Pur='\[\e[0;35m\]'
 
     local status=""
@@ -51,7 +52,7 @@ function __prompt_command() {
         status="${Gre}\u${LGre}@${BGre}\h${Reset}"
     fi
 
-    PS1="${Pur}\w\n$status\$ "
+    PS1="${Pur}\w${BYel}$(__git_ps1)\n$status\$ "
 }
 
 # enable color support of ls and also add handy aliases
@@ -85,5 +86,8 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-# export
+# show whether git repository has pending changes
+export GIT_PS1_SHOWDIRTYSTATE=1
+
+# export editor
 export EDITOR="vim"
