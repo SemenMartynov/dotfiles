@@ -9,3 +9,5 @@
 	email = semen.martynov@gmail.com
 [push]
 	default = upstream
+[alias]
+	lg = log --graph --decorate --date-order --date=format:'%Y-%m-%d %H:%M:%S' --pretty=format:'%C(cyan)%h%Creset %C(black bold)%ad%Creset%C(auto)%d %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
