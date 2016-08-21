@@ -24,10 +24,8 @@ URxvt.savelines: 1000
 URxvt.cursorBlink: true
 !URxvt.geometry: 93x26
 URxvt.fading: 25%
-URxvt.font: xft:Bitstream Vera Sans Mono:pixelsize=12
-!URxvt.font: xft:terminus:size=10:antialias=true
-URxvt.boldfont: xft:Bitstream Vera Sans Mono:bold:pixelsize=12
-!URxvt.boldfont: xft:terminus:bold:size=10:antialias=true
+URxvt.font: xft:Inconsolata:pixelsize=16:antialias=true:hinting=slight
+URxvt.boldFont: xft:Inconsolata:style=bold:pixelsize=16:antialias=true:hinting=slight
 !urxvt.depth: 32
 URxvt.background: rgba:0000/0000/0000/dddd
 URxvt.foreground: grey80
