@@ -31,5 +31,5 @@ Config {
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " <fc=#FF0000>%kbd%</fc> <fc=#555>|</fc> %StdinReader% }{ ( %wlp3s0wi% ) ( bat: %battery% ) <fc=#555>|</fc> <fc=#EE9A00><action=gsimplecal>%date%</action></fc>"
+       , template = " <fc=#FF0000>%kbd%</fc> <fc=#555>|</fc> %StdinReader% }{ ( %wlp3s0wi% ) ( bat: %battery% ) <fc=#555>|</fc>            <fc=#555>|</fc> <fc=#EE9A00><action=gsimplecal>%date%</action></fc>"
        }
