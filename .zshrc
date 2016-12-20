@@ -51,7 +51,9 @@ zstyle ':completion:*:killall:*'   force-list always
 setopt correct
 
 # The "command not found" hook
-source /usr/share/doc/pkgfile/command-not-found.zsh
+if [[ -s '/usr/share/doc/pkgfile/command-not-found.zsh' ]]; then
+  source /usr/share/doc/pkgfile/command-not-found.zsh
+fi
 
 # set ignore case for ls etc
 setopt no_case_glob
