@@ -1,7 +1,9 @@
 [core]
 	editor = vim
 [diff]
-    tool = vimdiff
+  tool = vimdiff
+[merge]
+	conflictstyle = diff3
 [color]
 	ui = true
 [user]
