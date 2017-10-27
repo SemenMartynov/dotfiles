@@ -89,5 +89,8 @@ fi
 # show whether git repository has pending changes
 export GIT_PS1_SHOWDIRTYSTATE=1
 
+# Compression rate                                                              
+export GZIP="-9"
+
 # export editor
 export EDITOR="vim"
