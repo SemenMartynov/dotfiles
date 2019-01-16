@@ -4,13 +4,15 @@
 [ -z "$PS1" ] && return
 
 # save datestamp of command in hisory
-#export HISTTIMEFORMAT='%F %T '
+export HISTTIMEFORMAT='%F %T '
 
 # save commands immediately
 #export PROMPT_COMMAND='history -a;history -n'
 
 # don't put duplicate lines (ignoredups) and lines starting with space (ignorespace) in the history.
-export HISTCONTROL=ignoreboth:erasedups
+# export HISTCONTROL=ignoreboth:erasedups
+export HISTCONTROL=ignoreboth
+export HISTIGNORE="ls:ll:history:htop:w"
 
 # save quantity comand
 export HISTSIZE=1000
@@ -67,7 +69,6 @@ fi
 
 # some more aliases
 alias ll='ls -alF'
-alias yandex='mount /media/yandex'
 alias cd..='cd ..'
 alias tm='tmux attach || tmux new'
 
