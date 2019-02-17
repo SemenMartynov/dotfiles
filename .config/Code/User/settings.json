@@ -1,0 +1,7 @@
+{
+    "breadcrumbs.enabled": true,
+    "files.autoSave": "onWindowChange",
+    "editor.renderWhitespace": "boundary",
+    "editor.smoothScrolling": true,
+    "debug.inlineValues": true
+}
