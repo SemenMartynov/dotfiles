@@ -29,6 +29,11 @@ Plugin 'taglist.vim'          " plugin from http://vim-scripts.org
 call vundle#end()             " required
 filetype plugin indent on     " required
 
+""""""""""""""""""""""""""""""""""""""""""""""""
+""                   VIM-GO                   ""
+""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:go_version_warning = 0
 
 """"""""""""""""""""""""""""""""""""""""""""""""
 ""                  NERDTree                  ""
