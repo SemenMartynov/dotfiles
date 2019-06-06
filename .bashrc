@@ -94,7 +94,13 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 # show whether git repository has pending changes
-export GIT_PS1_SHOWDIRTYSTATE=1
+# export GIT_PS1_DESCRIBE_STYLE='contains'
+# export GIT_PS1_SHOWCOLORHINTS='true'
+# export GIT_PS1_SHOWDIRTYSTATE='true'
+export GIT_PS1_SHOWSTASHSTATE='true'
+# export GIT_PS1_SHOWUNTRACKEDFILES='true'
+# export GIT_PS1_SHOWUPSTREAM=verbose
+# export GIT_PS1_HIDE_IF_PWD_IGNORED='true'
 
 # Compression rate                                                              
 export GZIP="-9"
