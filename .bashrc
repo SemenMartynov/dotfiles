@@ -29,6 +29,8 @@ shopt -s cdspell
 shopt -s nocaseglob
 # save all lines of a multiple-line command in the same history entry (allows easy re-editing of multi-line commands)
 shopt -s cmdhist
+# replace directory names with the results of word expansion
+shopt -s direxpand
 
 # prompt
 #PS1='\[\033[32m\] \u @ \[\033[01;32m\] \h \[\033[00m\]:\[\033[34m\] \w \[\033[00m\] \$ '
