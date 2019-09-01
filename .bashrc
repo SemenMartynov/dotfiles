@@ -102,8 +102,5 @@ export GIT_PS1_SHOWSTASHSTATE='true'
 # export GIT_PS1_SHOWUPSTREAM=verbose
 # export GIT_PS1_HIDE_IF_PWD_IGNORED='true'
 
-# Compression rate                                                              
-export GZIP="-9"
-
 # export editor
 export EDITOR="vim"
