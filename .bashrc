@@ -12,7 +12,7 @@ export HISTTIMEFORMAT='%F %T '
 # don't put duplicate lines (ignoredups) and lines starting with space (ignorespace) in the history.
 # export HISTCONTROL=ignoreboth:erasedups
 export HISTCONTROL=ignoreboth
-export HISTIGNORE="ls:ll:lll:jobs:fg:bg:history:htop:w"
+export HISTIGNORE="ls:ll:jobs:fg:bg:history:htop:w"
 
 # save quantity comand
 export HISTSIZE=1000
@@ -75,7 +75,6 @@ fi
 
 # some more aliases
 alias ll='ls -alF'
-alias lll='ls -halF'
 alias cd..='cd ..'
 alias tm='tmux attach || tmux new'
 
