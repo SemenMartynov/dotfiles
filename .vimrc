@@ -23,17 +23,10 @@ Plugin 'bling/vim-airline'
 Plugin 'scrooloose/syntastic'
 Plugin 'Raimondi/delimitMate'
 Plugin 'majutsushi/tagbar'
-Plugin 'fatih/vim-go'
 Plugin 'taglist.vim'          " plugin from http://vim-scripts.org
 
 call vundle#end()             " required
 filetype plugin indent on     " required
-
-""""""""""""""""""""""""""""""""""""""""""""""""
-""                   VIM-GO                   ""
-""""""""""""""""""""""""""""""""""""""""""""""""
-
-let g:go_version_warning = 0
 
 """"""""""""""""""""""""""""""""""""""""""""""""
 ""                  NERDTree                  ""
@@ -70,6 +63,8 @@ let g:syntastic_check_on_wq = 0
 """"""""""""""""""""""""""""""""""""""""""""""""
 " the F8 key will toggle the Tagbar window
 nmap <F8> :TagbarToggle<CR>
+
+autocmd BufEnter * nested :call tagbar#autoopen(0)
 
 " Google Go
 let g:tagbar_type_go = {
