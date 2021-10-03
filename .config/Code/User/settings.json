@@ -1,7 +1,15 @@
 {
-    "breadcrumbs.enabled": true,
-    "files.autoSave": "onWindowChange",
-    "editor.renderWhitespace": "boundary",
     "editor.smoothScrolling": true,
-    "debug.inlineValues": true
+    "debug.inlineValues": true,
+    "cSpell.language": "en,ru",
+    "explorer.confirmDelete": false,
+    "c-cpp-flylint.flexelint.enable": false,
+    "editor.renderControlCharacters": true,
+    "editor.renderWhitespace": "all",
+    "diffEditor.ignoreTrimWhitespace": false,
+    "cmake.ctest.parallelJobs": 4,
+    "[plaintext]": {
+        "editor.copyWithSyntaxHighlighting": false
+    },
+    "go.toolsManagement.autoUpdate": true
 }
