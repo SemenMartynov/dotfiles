@@ -34,9 +34,9 @@ shopt -s direxpand
 
 # prompt
 #PS1='\[\033[32m\] \u @ \[\033[01;32m\] \h \[\033[00m\]:\[\033[34m\] \w \[\033[00m\] \$ '
-# Fix "__git_ps1: command not found" on CentOS and RHEL
-if [ -f /usr/share/git-core/contrib/completion/git-prompt.sh ]; then
-    source /usr/share/git-core/contrib/completion/git-prompt.sh
+# Fix "__git_ps1: command not found" on CentOS and RHEL 
+if [ -f /usr/share/git/completion/git-prompt.sh ]; then
+    source /usr/share/git/completion/git-prompt.sh
 fi
 
 export PROMPT_COMMAND=__prompt_command
