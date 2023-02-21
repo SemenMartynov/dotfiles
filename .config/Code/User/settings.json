@@ -1,15 +1,22 @@
 {
     "editor.smoothScrolling": true,
-    "debug.inlineValues": true,
-    "cSpell.language": "en,ru",
-    "explorer.confirmDelete": false,
-    "c-cpp-flylint.flexelint.enable": false,
-    "editor.renderControlCharacters": true,
     "editor.renderWhitespace": "all",
-    "diffEditor.ignoreTrimWhitespace": false,
-    "cmake.ctest.parallelJobs": 4,
+    "editor.renderControlCharacters": true,
+    "editor.largeFileOptimizations": false,
+    "editor.unicodeHighlight.allowedLocales": {
+        "ru": true
+    },
     "[plaintext]": {
         "editor.copyWithSyntaxHighlighting": false
     },
-    "go.toolsManagement.autoUpdate": true
+    "cSpell.language": "en,ru",
+    "debug.inlineValues": "on",
+    "c-cpp-flylint.clang.pedantic": true,
+    "c-cpp-flylint.cppcheck.verbose": true,
+    "c-cpp-flylint.flawfinder.enable": false,
+    "c-cpp-flylint.lizard.enable": false,
+    "c-cpp-flylint.flexelint.enable": false,
+    "cmake.configureOnOpen": true,
+    "C_Cpp.default.cppStandard": "c++20",
+    "diffEditor.ignoreTrimWhitespace": false,
 }
