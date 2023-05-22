@@ -33,7 +33,6 @@ shopt -s cmdhist
 shopt -s direxpand
 
 # prompt
-#PS1='\[\033[32m\] \u @ \[\033[01;32m\] \h \[\033[00m\]:\[\033[34m\] \w \[\033[00m\] \$ '
 # Fix "__git_ps1: command not found" on CentOS and RHEL 
 if [ -f /usr/share/git/completion/git-prompt.sh ]; then
     source /usr/share/git/completion/git-prompt.sh
@@ -43,24 +42,30 @@ export PROMPT_COMMAND=__prompt_command
 function __prompt_command() {
     local EXIT="$?"             # This needs to be first
 
-    local Reset='\[\033[00m\]'
-    local  Gre='\[\033[00;32m\]'
-    local BGre='\[\033[01;32m\]'
-    local LGre='\[\033[00;92m\]'
-    local  Red='\[\033[00;31m\]'
-    local BRed='\[\033[01;31m\]'
-    local LRed='\[\033[00;91m\]'
-    local BYel='\[\033[01;33m\]'
-    local Pur='\[\e[0;35m\]'
+    local Reset='\e[0m'
+    local  Grn='\e[00;32m'
+    local BGrn='\e[01;32m'
+    local LGrn='\e[00;92m'
+    local  Red='\e[00;31m'
+    local BRed='\e[01;31m'
+    local LRed='\e[00;91m'
+    local BYel='\e[01;33m'
+    local  Pur='\e[0;35m'
+    local BCyn='\e[1;36m'
 
     local status=""
     if [ $EXIT != 0 ]; then
         status="${Red}\u${LRed}@${BRed}\h${Reset}"      # Add red if exit code non 0
     else
-        status="${Gre}\u${LGre}@${BGre}\h${Reset}"
+        status="${Grn}\u${LGrn}@${BGrn}\h${Reset}"
     fi
 
     PS1="${Pur}\w${BYel}$(__git_ps1)\n$status\$ "
+
+    # Python venv
+    if [ ! -z "$VIRTUAL_ENV" ]; then
+        PS1="${BCyn}(`basename \"$VIRTUAL_ENV\"`)${Reset} $PS1"
+    fi
 }
 
 # enable color support of ls and also add handy aliases
