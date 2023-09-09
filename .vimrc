@@ -16,6 +16,16 @@ set shiftwidth=2                      " indents will have a width of 4.
 set softtabstop=2                     " Sets the number of columns for a TAB.
 set expandtab                         " Expand TABs to spaces.
 
+" Relative line numbers for the normal mode, ans absolute line numbers for the insert mode.
+" https://jeffkreeftmeijer.com/vim-number/
+set number
+
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
+  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
+augroup END
+
 " Line length marker
 set colorcolumn=80
 highlight ColorColumn ctermbg=darkgray
