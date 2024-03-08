@@ -37,6 +37,8 @@ shopt -s direxpand
 # Fix "__git_ps1: command not found" on CentOS and RHEL 
 if [ -f /usr/share/git/completion/git-prompt.sh ]; then
     source /usr/share/git/completion/git-prompt.sh
+elif [ -f /usr/share/git-core/contrib/completion/git-prompt.sh ]; then
+    source /usr/share/git-core/contrib/completion/git-prompt.sh
 fi
 
 export PROMPT_COMMAND=__prompt_command
