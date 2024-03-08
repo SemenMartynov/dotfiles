@@ -83,6 +83,7 @@ fi
 alias ll='ls -alF'
 alias cd..='cd ..'
 alias tm='tmux attach || tmux new'
+alias tbox='mkdir -p /tmp/tbox && ln -s /tmp/tbox/ ./tbox && cd tbox'
 
 # make possible to view compressed (methods gzip, bzip2, zip, compress)
 # and otherwise encoded files (support for tar, RPM, nroff, MS-Word and many more)
