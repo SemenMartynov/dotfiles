@@ -1,0 +1,126 @@
+# https://alacritty.org/config-alacritty.html
+
+[general]
+# live_config_reload = true
+import = [
+    "~/.config/alacritty/themes/catppuccin_mocha.toml"
+]
+
+[env]
+TERM = "xterm-256color"
+
+[window]
+#dimensions            = { columns = 133, lines = 40 }
+#position              = { x = 0, y = 0 }
+padding               = { x = 3, y = 3 }
+#dynamic_padding       = false
+#decorations           = "None"
+#opacity               = 1.0
+#blur                  = true
+#startup_mode          = "Windowed"
+#title                 = "Alacritty"
+#dynamic_title         = true
+#class                 = { instance = "Alacritty", general = "Alacritty" }
+#decorations_theme_variant = "None"
+#resize_increments     = false
+#option_as_alt         = "None"
+#level = "Normal"
+
+[scrolling]
+#history               = 10000
+#multiplier            = 3
+
+[font]
+# $ fc-list : family style
+# DejaVu Sans Mono
+#normal                = { family = "DejaVu Sans Mono", style = "Book" }
+#bold                  = { family = "DejaVu Sans Mono", style = "Bold" }
+#italic                = { family = "DejaVu Sans Mono", style = "Oblique" }
+#bold_italic           = { family = "DejaVu Sans Mono", style = "Bold Oblique" }
+# FiraMono Nerd Font Mono
+normal                = { family = "FiraMono Nerd Font Mono", style = "Regular" }
+bold                  = { family = "FiraMono Nerd Font Mono", style = "Bold" }
+italic                = { family = "FiraMono Nerd Font Mono", style = "Medium,Regular" }
+bold_italic           = { family = "FiraMono Nerd Font Mono", style = "Bold Medium,Regular" }
+size                  = 11.25
+#offset                = { x = 0, y = 0 }
+#glyph_offset          = { x = 0, y = 0 }
+#builtin_box_drawing   = true
+
+
+[bell]
+animation             = "EaseOutExpo"
+duration              = 0
+color                 = "#C0C5CE"
+#command               = { program = "notify-send", args = ["alacritty", "bell",] }
+
+[selection]
+#semantic_escape_chars = ",│‘|:"' ()[]{}<>t"
+save_to_clipboard     = true
+
+[cursor]
+# style                 = { shape = "Block", blinking = "Off" }
+vi_mode_style         = { shape = "Block", blinking = "Off" }
+#blink_interval        = 750
+#blink_timeout         = 5
+#unfocused_hollow      = true
+#thickness             = 0.15
+
+[terminal]
+#shell                 = "$SHELL"
+#osc52                 = "OnlyCopy"
+
+[mouse]
+#hide_when_typing      = false
+bindings = [
+  { mouse = "Middle", action = "PasteSelection" },
+  { mouse = "Right", action = "Paste" },
+]
+
+[hints]
+#alphabet              = "jfkdls;ahgurieowpq"
+
+#[[hints.enabled]]
+#command               = "xdg-open"
+## command             = "open" # On macOS
+## command             = { program = "cmd", args = [ "/c", "start", "" ] } # On Windows
+#hyperlinks            = true
+#post_processing       = true
+#persist               = false
+#mouse.enabled         = true
+#binding               = { key = "O", mods = "Control|Shift" }
+#regex                 = "(ipfs:|ipns:|magnet:|mailto:|gemini://|gopher://|https://|http://|news:|file:|git://|ssh:|ftp://)[^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩‘]+"
+
+[keyboard]
+bindings = [
+   { key = "Return", mods = "Control|Shift", action = "SpawnNewInstance" },
+#  { key = "V",        mods = "Control|Shift", action = "Paste" },
+#  { key = "C",        mods = "Control|Shift", action = "Copy" },
+#  { key = "Paste",                            action = "Paste" },
+#  { key = "Copy",                             action = "Copy" },
+#  { key = "Insert",   mods = "Shift",         action = "PasteSelection" },
+#  { key = "F",        mods = "Control|Shift", action = "SearchForward",     mode = "~Search" },
+#  { key = "B",        mods = "Control|Shift", action = "SearchBackward",    mode = "~Search" },
+#  { key = "Key0",     mods = "Control",       action = "ResetFontSize" },
+#  { key = "Equals",   mods = "Control",       action = "IncreaseFontSize" },
+#  { key = "Minus",    mods = "Control",       action = "DecreaseFontSize" },
+#  { key = "L",        mods = "Control",       action = "ClearLogNotice" },
+#  { key = "L",        mods = "Control",       chars  = "\f" },
+#  { key = "PageUp",   mods = "Shift",         action = "ScrollPageUp",      mode = "~Alt" },
+#  { key = "PageDown", mods = "Shift",         action = "ScrollPageDown",    mode = "~Alt" },
+#  { key = "Up",       mods = "Shift",         action = "ScrollLineUp",      mode = "~Alt" },
+#  { key = "Down",     mods = "Shift",         action = "ScrollLineDown",    mode = "~Alt" },
+#  { key = "Home",     mods = "Shift",         action = "ScrollToTop",       mode = "~Alt" },
+#  { key = "End",      mods = "Shift",         action = "ScrollToBottom",    mode = "~Alt" },
+#  { key = "N", mods = "Control|Shift", action = "CreateNewWindow" },
+#  { key = "L", mods = "Control|Shift", chars = "l" },
+]
+
+#[debug]
+#render_timer          = false
+#persistent_logging    = false
+#log_level             = "Warn"
+#renderer              = "None"
+#print_events          = false
+#highlight_damage      = false
+#prefer_egl            = false
