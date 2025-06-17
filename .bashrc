@@ -19,6 +19,9 @@ export HISTSIZE=1000
 # size of history log in KB
 export HISTFILESIZE=50000
 
+# export editor
+export EDITOR="nvim"
+
 # append to the history file, don't overwrite it
 shopt -s histappend
 # check the window size after each command and, if necessary, update the values of LINES and COLUMNS.
@@ -32,7 +35,19 @@ shopt -s cmdhist
 # replace directory names with the results of word expansion
 shopt -s direxpand
 
-# prompt
+# Alacritty support
+case ${TERM} in
+  xterm*|rxvt*|Etermi|alacritty|aterm|kterm|gnome*)
+     PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }'printf "\033]0;%s@%s:%s\007" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"'
+    ;;
+  screen*)
+    PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }'printf "\033_%s@%s:%s\033\\" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"'
+    ;;
+esac
+
+
+# Prompt
+#
 #PS1='\[\033[32m\] \u @ \[\033[01;32m\] \h \[\033[00m\]:\[\033[34m\] \w \[\033[00m\] \$ '
 # Fix "__git_ps1: command not found" on CentOS and RHEL 
 if [ -f /usr/share/git/completion/git-prompt.sh ]; then
@@ -71,6 +86,16 @@ function __prompt_command() {
     fi
 }
 
+# Creates a directory and goes into it
+take() {
+    if [ $# -lt 1 ]; then
+        echo "Usage: take <directory>" >&2
+        return 1
+    fi
+
+    mkdir -p -- "$1" && cd -- "$1"
+}
+
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -80,16 +105,6 @@ if [ -x /usr/bin/dircolors ]; then
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
-
-# Alacritty support
-case ${TERM} in
-  xterm*|rxvt*|Etermi|alacritty|aterm|kterm|gnome*)
-     PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }'printf "\033]0;%s@%s:%s\007" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"'
-    ;;
-  screen*)
-    PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }'printf "\033_%s@%s:%s\033\\" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"'
-    ;;
-esac
 
 # some more aliases
 alias ll='ls -alF'
@@ -120,6 +135,3 @@ export GIT_PS1_SHOWSTASHSTATE='true'
 # export GIT_PS1_SHOWUNTRACKEDFILES='true'
 # export GIT_PS1_SHOWUPSTREAM=verbose
 # export GIT_PS1_HIDE_IF_PWD_IGNORED='true'
-
-# export editor
-export EDITOR="vim"
