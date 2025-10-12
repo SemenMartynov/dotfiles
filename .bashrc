@@ -21,6 +21,8 @@ export HISTFILESIZE=50000
 
 # export editor
 export EDITOR="nvim"
+alias vi="nvim"
+alias vim="nvim"
 
 # append to the history file, don't overwrite it
 shopt -s histappend
@@ -37,73 +39,72 @@ shopt -s direxpand
 
 # Alacritty support
 case ${TERM} in
-  xterm*|rxvt*|Etermi|alacritty|aterm|kterm|gnome*)
-     PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }'printf "\033]0;%s@%s:%s\007" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"'
-    ;;
-  screen*)
-    PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }'printf "\033_%s@%s:%s\033\\" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"'
-    ;;
+xterm* | rxvt* | Etermi | alacritty | aterm | kterm | gnome*)
+  PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }'printf "\033]0;%s@%s:%s\007" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"'
+  ;;
+screen*)
+  PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }'printf "\033_%s@%s:%s\033\\" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"'
+  ;;
 esac
-
 
 # Prompt
 #
 #PS1='\[\033[32m\] \u @ \[\033[01;32m\] \h \[\033[00m\]:\[\033[34m\] \w \[\033[00m\] \$ '
-# Fix "__git_ps1: command not found" on CentOS and RHEL 
+# Fix "__git_ps1: command not found" on CentOS and RHEL
 if [ -f /usr/share/git/completion/git-prompt.sh ]; then
-    source /usr/share/git/completion/git-prompt.sh
+  source /usr/share/git/completion/git-prompt.sh
 elif [ -f /usr/share/git-core/contrib/completion/git-prompt.sh ]; then
-    source /usr/share/git-core/contrib/completion/git-prompt.sh
+  source /usr/share/git-core/contrib/completion/git-prompt.sh
 fi
 
 export PROMPT_COMMAND=__prompt_command
 function __prompt_command() {
-    local EXIT="$?"             # This needs to be first
+  local EXIT="$?" # This needs to be first
 
-    local Reset='\[\033[00m\]'
-    local  Grn='\[\033[00;32m\]'
-    local BGrn='\[\033[01;32m\]'
-    local LGrn='\[\033[00;92m\]'
-    local  Red='\[\033[00;31m\]'
-    local BRed='\[\033[01;31m\]'
-    local LRed='\[\033[00;91m\]'
-    local BYel='\[\033[01;33m\]'
-    local  Pur='\[\033[00;35m\]'
-    local BCyn='\[\033[01;36m\]'
+  local Reset='\[\033[00m\]'
+  local Grn='\[\033[00;32m\]'
+  local BGrn='\[\033[01;32m\]'
+  local LGrn='\[\033[00;92m\]'
+  local Red='\[\033[00;31m\]'
+  local BRed='\[\033[01;31m\]'
+  local LRed='\[\033[00;91m\]'
+  local BYel='\[\033[01;33m\]'
+  local Pur='\[\033[00;35m\]'
+  local BCyn='\[\033[01;36m\]'
 
-    local status=""
-    if [ $EXIT != 0 ]; then
-        status="${Red}\u${LRed}@${BRed}\h${Reset}"      # Add red if exit code non 0
-    else
-        status="${Grn}\u${LGrn}@${BGrn}\h${Reset}"
-    fi
+  local status=""
+  if [ $EXIT != 0 ]; then
+    status="${Red}\u${LRed}@${BRed}\h${Reset}" # Add red if exit code non 0
+  else
+    status="${Grn}\u${LGrn}@${BGrn}\h${Reset}"
+  fi
 
-    PS1="${Pur}\w${BYel}$(__git_ps1)\n$status\$ "
+  PS1="${Pur}\w${BYel}$(__git_ps1)\n$status\$ "
 
-    # Python venv
-    if [ ! -z "$VIRTUAL_ENV" ]; then
-        PS1="${BCyn}(`basename \"$VIRTUAL_ENV\"`)${Reset} $PS1"
-    fi
+  # Python venv
+  if [ ! -z "$VIRTUAL_ENV" ]; then
+    PS1="${BCyn}($(basename \"$VIRTUAL_ENV\"))${Reset} $PS1"
+  fi
 }
 
 # Creates a directory and goes into it
 take() {
-    if [ $# -lt 1 ]; then
-        echo "Usage: take <directory>" >&2
-        return 1
-    fi
+  if [ $# -lt 1 ]; then
+    echo "Usage: take <directory>" >&2
+    return 1
+  fi
 
-    mkdir -p -- "$1" && cd -- "$1"
+  mkdir -p -- "$1" && cd -- "$1"
 }
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
+  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+  alias ls='ls --color=auto'
+
+  alias grep='grep --color=auto'
+  alias fgrep='fgrep --color=auto'
+  alias egrep='egrep --color=auto'
 fi
 
 # some more aliases
@@ -124,7 +125,7 @@ bind 'set completion-ignore-case on'
 
 # enable programmable completion features (install bash-completion).
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    . /etc/bash_completion
+  . /etc/bash_completion
 fi
 
 # show whether git repository has pending changes
