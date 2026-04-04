@@ -3,29 +3,13 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-# save datestamp of command in hisory
-export HISTTIMEFORMAT='%F %T '
-
-# save commands immediately
-#export PROMPT_COMMAND='history -a;history -n'
-
-# don't put duplicate lines (ignoredups) and lines starting with space (ignorespace) in the history.
-# export HISTCONTROL=ignoreboth:erasedups
-export HISTCONTROL=ignoreboth
-export HISTIGNORE="ls:ll:jobs:fg:bg:history:htop:w"
-
-# save quantity comand
-export HISTSIZE=1000
-# size of history log in KB
-export HISTFILESIZE=50000
+###############################################################################
+##                                  General                                  ##
+###############################################################################
 
 # export editor
 export EDITOR="nvim"
-alias vi="nvim"
-alias vim="nvim"
 
-# append to the history file, don't overwrite it
-shopt -s histappend
 # check the window size after each command and, if necessary, update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 # correct minor errors in the spelling of a directory component in a cd command
@@ -39,28 +23,89 @@ shopt -s direxpand
 
 # Alacritty support
 case ${TERM} in
-xterm* | rxvt* | Etermi | alacritty | aterm | kterm | gnome*)
-  PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }'printf "\033]0;%s@%s:%s\007" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"'
-  ;;
-screen*)
-  PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }'printf "\033_%s@%s:%s\033\\" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"'
-  ;;
+  xterm* | rxvt* | Eterm | alacritty | aterm | kterm | gnome*)
+    _title_cmd='printf "\033]0;%s@%s:%s\007" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"'
+    ;;
+  screen*)
+    _title_cmd='printf "\033_%s@%s:%s\033\\" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"'
+    ;;
+  *)
+    _title_cmd=""
+    ;;
 esac
 
-# Prompt
-#
+# Case-insensitive Tab completion
+bind "set completion-ignore-case on"
+# Show all completions on first Tab (no double-Tab needed)
+bind "set show-all-if-ambiguous on"
+
+###############################################################################
+##                                  History                                  ##
+###############################################################################
+
+# Number of command log lines in memory
+export HISTSIZE=10000
+# Number of command log lines on disk
+export HISTFILESIZE=50000
+
+# save datestamp of command in hisory
+export HISTTIMEFORMAT='%F %T '
+
+# save commands immediately
+#export PROMPT_COMMAND='history -a;history -n'
+
+# don't put duplicate lines (ignoredups) and lines starting with space (ignorespace) in the history.
+export HISTCONTROL=ignoreboth # ignoredups + ignorespace
+# export HISTCONTROL=ignoreboth:erasedups
+
+# Skip noise commands
+export HISTIGNORE="ls:ll:jobs:fg:bg:history:htop:w:exit:clear:pwd"
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# history navigation
+bind '"\e[A": history-search-backward'
+bind '"\e[B": history-search-forward'
+
+###############################################################################
+##                               Prompt (PS1)                                ##
+###############################################################################
+
 #PS1='\[\033[32m\] \u @ \[\033[01;32m\] \h \[\033[00m\]:\[\033[34m\] \w \[\033[00m\] \$ '
-# Fix "__git_ps1: command not found" on CentOS and RHEL
-if [ -f /usr/share/git/completion/git-prompt.sh ]; then
-  source /usr/share/git/completion/git-prompt.sh
-elif [ -f /usr/share/git-core/contrib/completion/git-prompt.sh ]; then
-  source /usr/share/git-core/contrib/completion/git-prompt.sh
-fi
 
-export PROMPT_COMMAND=__prompt_command
+# --- git-prompt (distribution-agnostic) ---
+for _git_prompt in \
+  /usr/share/git/completion/git-prompt.sh \
+  /usr/share/git-core/contrib/completion/git-prompt.sh \
+  /usr/lib/git-core/git-sh-prompt \
+  /opt/homebrew/etc/bash_completion.d/git-prompt.sh
+do
+  if [ -f "$_git_prompt" ]; then
+    # shellcheck source=/dev/null
+    source "$_git_prompt"
+    break
+  fi
+done
+unset _git_prompt
+
+# Git status indicators in prompt
+# export GIT_PS1_DESCRIBE_STYLE='contains'  # detached HEAD
+# export GIT_PS1_SHOWCOLORHINTS='true'      # colour inside __git_ps1
+# export GIT_PS1_SHOWDIRTYSTATE='true'      # * unstaged  + staged
+export GIT_PS1_SHOWSTASHSTATE='true'        # $ stashed
+# export GIT_PS1_SHOWUNTRACKEDFILES='true'  # % untracked
+# export GIT_PS1_SHOWUPSTREAM=verbose       # ahead/behind upstream
+# export GIT_PS1_HIDE_IF_PWD_IGNORED='true' # hides the git prompt if CWD is added to .gitignore
+
+# --- Prompt function ---
 function __prompt_command() {
-  local EXIT="$?" # This needs to be first
+  local EXIT="$?"      # must be first
 
+  # Update window title
+  [ -n "$_title_cmd" ] && eval "$_title_cmd"
+
+  # Colours
   local Reset='\[\033[00m\]'
   local Grn='\[\033[00;32m\]'
   local BGrn='\[\033[01;32m\]'
@@ -72,20 +117,26 @@ function __prompt_command() {
   local Pur='\[\033[00;35m\]'
   local BCyn='\[\033[01;36m\]'
 
-  local status=""
-  if [ $EXIT != 0 ]; then
-    status="${Red}\u${LRed}@${BRed}\h${Reset}" # Add red if exit code non 0
+  # user@host — red if last command failed
+  local status_part
+  if [ "$EXIT" -ne 0 ]; then
+    status_part="${Red}\u${LRed}@${BRed}\h${Reset}"
   else
-    status="${Grn}\u${LGrn}@${BGrn}\h${Reset}"
+    status_part="${Grn}\u${LGrn}@${BGrn}\h${Reset}"
   fi
 
-  PS1="${Pur}\w${BYel}$(__git_ps1)\n$status\$ "
+  PS1="${Pur}\w${BYel}$(__git_ps1 " (%s)")${Reset}\n${status_part}\$ "
 
-  # Python venv
-  if [ ! -z "$VIRTUAL_ENV" ]; then
-    PS1="${BCyn}($(basename \"$VIRTUAL_ENV\"))${Reset} $PS1"
+  # Prepend active Python venv name
+  if [ -n "$VIRTUAL_ENV" ]; then
+    PS1="${BCyn}($(basename "$VIRTUAL_ENV"))${Reset} $PS1"
   fi
 }
+export PROMPT_COMMAND="__prompt_command"
+
+###############################################################################
+##                                   Tools                                   ##
+###############################################################################
 
 # Creates a directory and goes into it
 take() {
@@ -93,46 +144,87 @@ take() {
     echo "Usage: take <directory>" >&2
     return 1
   fi
-
-  mkdir -p -- "$1" && cd -- "$1"
+  mkdir -p -- "$@" && cd -- "$_"
 }
 
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-  alias ls='ls --color=auto'
-
-  alias grep='grep --color=auto'
-  alias fgrep='fgrep --color=auto'
-  alias egrep='egrep --color=auto'
-fi
-
-# some more aliases
-alias ll='ls -alF'
-alias cd..='cd ..'
-alias tm='tmux attach || tmux new'
-alias tbox='mkdir -p /tmp/tbox && ln -s /tmp/tbox/ ./tbox && cd tbox'
+# Extract/Unpack any common archive format
+extract() {
+  if [ $# -lt 1 ]; then
+    echo "Usage: extract <file>" >&2
+    return 1
+  fi
+  if [ ! -f "$1" ]; then
+    echo "'$1' is not a file" >&2
+    return 1
+  fi
+  case "$1" in
+    *.tar.bz2)  tar xjf "$1"    ;;
+    *.tar.gz)   tar xzf "$1"    ;;
+    *.tar.xz)   tar xJf "$1"    ;;
+    *.tar.zst)  tar --zstd -xf "$1" ;;
+    *.bz2)      bunzip2 "$1"    ;;
+    *.gz)       gunzip "$1"     ;;
+    *.tar)      tar xf "$1"     ;;
+    *.tbz2)     tar xjf "$1"    ;;
+    *.tgz)      tar xzf "$1"    ;;
+    *.zip)      unzip "$1"      ;;
+    *.7z)       7z x "$1"       ;;
+    *.xz)       unxz "$1"       ;;
+    *.zst)      zstd -d "$1"    ;;
+    *.rar)      unrar x "$1"    ;;
+    *)          echo "Don't know how to extract '$1'" >&2; return 1 ;;
+  esac
+}
 
 # make possible to view compressed (methods gzip, bzip2, zip, compress)
 # and otherwise encoded files (support for tar, RPM, nroff, MS-Word and many more)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# history navigation
-bind '"\e[A": history-search-backward'
-bind '"\e[B": history-search-forward'
-
-bind 'set completion-ignore-case on'
-
 # enable programmable completion features (install bash-completion).
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-  . /etc/bash_completion
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
 fi
 
-# show whether git repository has pending changes
-# export GIT_PS1_DESCRIBE_STYLE='contains'
-# export GIT_PS1_SHOWCOLORHINTS='true'
-# export GIT_PS1_SHOWDIRTYSTATE='true'
-export GIT_PS1_SHOWSTASHSTATE='true'
-# export GIT_PS1_SHOWUNTRACKEDFILES='true'
-# export GIT_PS1_SHOWUPSTREAM=verbose
-# export GIT_PS1_HIDE_IF_PWD_IGNORED='true'
+###############################################################################
+##                                  Aliases                                  ##
+###############################################################################
+
+# Enable colour support for ls / grep
+if [ -x /usr/bin/dircolors ]; then
+  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+fi
+
+# --- Editor ---
+alias vi="nvim"
+alias vim="nvim"
+
+# --- ls ---
+if [ -x /usr/bin/dircolors ]; then
+    alias ls="ls --color=auto"
+  else
+    alias ls="ls -G" # macOS / BSD
+fi
+alias ll="ls -alF"
+
+# --- grep ---
+alias grep="grep --color=auto"
+
+# --- Navigation ---
+alias cd..="cd .."
+
+# --- tmux ---
+alias tm="tmux attach || tmux new"
+
+###############################################################################
+##                                  Suffix                                   ##
+###############################################################################
+
+# Machine-local settings (tokens, work paths, etc.)
+[ -f ~/.bashrc.local ] && source ~/.bashrc.local
+
+# Reset the return code to 0 so that the prompt is always green when start
+:
