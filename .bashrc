@@ -59,7 +59,7 @@ export HISTCONTROL=ignoreboth # ignoredups + ignorespace
 # export HISTCONTROL=ignoreboth:erasedups
 
 # Skip noise commands
-export HISTIGNORE="ls:ll:jobs:fg:bg:history:htop:w:exit:clear:pwd"
+export HISTIGNORE="ls:ll:jobs:fg:bg:history:htop:w:exit:clear:pwd:take"
 
 # append to the history file, don't overwrite it
 shopt -s histappend
@@ -174,6 +174,25 @@ extract() {
     *.rar)      unrar x "$1"    ;;
     *)          echo "Don't know how to extract '$1'" >&2; return 1 ;;
   esac
+}
+
+# Run devcontainer CLI
+devcontainer() {
+  # printf 'FROM debian:bookworm-slim\nRUN apt-get update && apt-get install -y --no-install-recommends curl ca-certificates xz-utils docker.io git && rm -rf /var/lib/apt/lists/*\nRUN curl -fsSL https://raw.githubusercontent.com/devcontainers/cli/main/scripts/install.sh | sh\nENTRYPOINT ["/root/.devcontainers/bin/devcontainer"]\n' | docker build -t local/devcontainer-cli -
+  local ssh_args=""
+
+  # Checking if ssh-agent is running on the host
+  if [ -n "$SSH_AUTH_SOCK" ] && [ -S "$SSH_AUTH_SOCK" ]; then
+    ssh_args="--mount type=bind,source=$SSH_AUTH_SOCK,target=/tmp/ssh-agent.sock \
+              --env SSH_AUTH_SOCK=/tmp/ssh-agent.sock"
+  fi
+
+  docker run -it --rm \
+    --mount type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock \
+    --mount type=bind,source="$(pwd)",target=/workspace \
+    $ssh_args \
+    --workdir /workspace \
+    local/devcontainer-cli:latest "$@"
 }
 
 # make possible to view compressed (methods gzip, bzip2, zip, compress)
